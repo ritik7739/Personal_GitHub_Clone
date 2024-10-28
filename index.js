@@ -3,7 +3,11 @@ const yargs=require("yargs");
 //helps to extract the arguments from the command line
 const {hideBin}=require("yargs/helpers");
 const {initRepos}=require("./controllers/init");
-const {addRepo}=require("./controllers/add");
+const {addRepos}=require("./controllers/add");
+const { commitRepos } = require("./controllers/commit");
+const { pushRepos } = require("./controllers/push");
+const { pullRepos } = require("./controllers/pull");
+const { revertRepos } = require("./controllers/revert");
 
 
 //use for what we need to perform if the for the command---> init
@@ -14,13 +18,21 @@ yargs(hideBin(process.argv))
         describe:"File to add the staging area",
         type:"string",
     });
-},addRepo)
-.command("commit <file>","Add a file to the repository",(yargs)=>{
-    yargs.positional("file",{
-        describe:"File to add the staging area",
+},addRepos)
+.command("commit<message>","commit the staged area",(yargs)=>{
+    yargs.positional("message",{
+        describe:"Commit message",
         type:"string",
     });
-},addRepo)
+},commitRepos)
+.command("push","Push Commits to S3",{},pushRepos)
+.command("pull","Pull Commits from S3",{},pullRepos)
+.command("revert<commitID>",'Revert to Specified commit',(yargs)=>{
+    yargs.positional("commitID",{
+        describe:"Commit ID to revert",
+        type:"string",
+    });
+},revertRepos)
 .demandCommand(1,"You need at least one command")
 .help().argv;
 

@@ -1,5 +1,5 @@
-async function addRepo(){
+async function addRepos(){
    console.log("add command called!");
 }
 
-module.exports={addRepo}
+module.exports={addRepos}
