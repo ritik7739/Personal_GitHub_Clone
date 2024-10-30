@@ -8,6 +8,7 @@ const { commitRepos } = require("./controllers/commit");
 const { pushRepos } = require("./controllers/push");
 const { pullRepos } = require("./controllers/pull");
 const { revertRepos } = require("./controllers/revert");
+const { argv } = require("process");
 
 
 //use for what we need to perform if the for the command---> init
@@ -18,7 +19,9 @@ yargs(hideBin(process.argv))
         describe:"File to add the staging area",
         type:"string",
     });
-},addRepos)
+},(argv)=>{
+    addRepos(argv.file);
+})
 .command("commit<message>","commit the staged area",(yargs)=>{
     yargs.positional("message",{
         describe:"Commit message",
