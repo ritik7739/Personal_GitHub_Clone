@@ -22,7 +22,7 @@ yargs(hideBin(process.argv))
 },(argv)=>{
     addRepos(argv.file);
 })
-.command("commit<message>","commit the staged area",(yargs)=>{
+.command("commit <message>","commit the staged area",(yargs)=>{
     yargs.positional("message",{
         describe:"Commit message",
         type:"string",
